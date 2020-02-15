@@ -26,6 +26,7 @@ const Location = props => {
   const submitLocation = e => {
     if (e.key === "Enter") {
       props.fetchWeather(location);
+      e.target.value = "";
     }
   };
   return (
@@ -33,9 +34,9 @@ const Location = props => {
       type="text"
       placeholder="location"
       className="col s10 offset-s1"
-      value={location}
       onChange={e => setLocation(e.target.value)}
       onKeyDown={submitLocation}
+      onFocus={e => (e.target.value = "")}
     />
   );
 };

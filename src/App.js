@@ -32,6 +32,8 @@ const App = () => {
 
     const res = await req.json();
 
+    if (res.Type === "Invalid Request") return setWeatherData(initialState);
+
     console.log(res);
 
     setWeatherData(res);
