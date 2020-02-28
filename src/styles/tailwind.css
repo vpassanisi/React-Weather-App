@@ -1,0 +1,11 @@
+/* purgecss start ignore */
+@tailwind  base;
+
+@tailwind  components;
+/* purgecss end ignore */
+
+@tailwind utilities;
+
+button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}

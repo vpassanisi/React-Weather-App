@@ -1,17 +1,16 @@
 import React from "react";
-import styled from "styled-components";
-
-const DIV = styled.div``;
-
-const H4 = styled.h4`
-  font-weight: 300;
-`;
 
 const Conditions = props => {
   return (
-    <DIV className="col s4 offset-s4 center white-text">
-      <H4>{props.conditions}</H4>
-    </DIV>
+    <div className="text-black mt-2 text-2xl">
+      <div>
+        {props.conditions}
+        <img
+          className="bg-blue-gray-900-alpha-70 rounded-md inline ml-2 p-2"
+          src={`${props.icon}?apiKey=FbkF7HBS4x03_o9G-VTicFHdCF1UrskFVGRd_OwZOmw`}
+        />
+      </div>
+    </div>
   );
 };
 
