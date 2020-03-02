@@ -7,6 +7,7 @@ const Search = props => {
       e.target.value = "";
     }
   };
+
   return (
     <div className="bg-blue-gray-900-alpha-70 pt-4 pb-2 rounded-b-md flex w-4/5 xl:w-1/2">
       <div className="w-1/6" />

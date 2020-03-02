@@ -8,7 +8,7 @@ const Favorite = props => {
       }`}
       onClick={() => {
         props.fetchWeather(props.favorite);
-        props.setSelected(props.index);
+        props.select(props.index);
       }}
     >
       {props.favorite}
