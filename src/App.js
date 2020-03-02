@@ -20,7 +20,7 @@ height: 100vh;
 const App = () => {
   const [weatherData, setWeatherData] = useState(initialState);
   const [location, setLocation] = useState("");
-  const [isMetric, setIsMetric] = useState(true);
+  const [isMetric, setIsMetric] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
   const fetchWeather = async (location, metric = isMetric) => {
@@ -41,18 +41,32 @@ const App = () => {
   };
 
   useEffect(() => {
-    const loadFavorites = JSON.parse(localStorage.getItem("favorites"));
-    if (loadFavorites) {
-      setFavorites(loadFavorites);
-      fetchWeather(loadFavorites[0], isMetric);
+    let loadFavorites = JSON.parse(localStorage.getItem("favorites"));
+
+    if (loadFavorites === null) loadFavorites = [];
+
+    setFavorites(loadFavorites);
+
+    let loadIsMetric = JSON.parse(localStorage.getItem("isMetric"));
+
+    if (loadIsMetric === null) loadIsMetric = false;
+
+    setIsMetric(loadIsMetric);
+
+    if (loadFavorites.length === 0) {
+      fetchWeather("Santa Cruz, CA", loadIsMetric);
     } else {
-      fetchWeather("Santa Cruz CA", isMetric);
+      fetchWeather(loadFavorites[0], loadIsMetric);
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem("isMetric", JSON.stringify(isMetric));
+  }, [isMetric]);
 
   return (
     <Container className="w-screen overflow-x-hidden">
