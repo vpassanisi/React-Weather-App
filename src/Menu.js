@@ -53,10 +53,10 @@ const Menu = props => {
         }`}
       >
         <div
-          className={`h-full w-56 left-0 bg-blue-gray-900 border-r-2 border-gray-500 rounded-r-md`}
+          className={`h-full w-56 left-0 bg-blue-gray-900 border-r-2 border-gray-500 rounded-r-md overflow-y-auto`}
         >
           <button
-            className="text-white font-hairline text-2xl w-full py-4 px-2 focus:outline-none hover:bg-blue-gray-700 transition duration-500  ease-in-out"
+            className="text-white font-hairline text-2xl w-full py-4 px-2 focus:outline-none over hover:bg-blue-gray-700 transition duration-500  ease-in-out"
             onClick={() => {
               props.setIsMetric(!props.isMetric);
               props.fetchWeather(
