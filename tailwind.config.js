@@ -27,7 +27,7 @@ module.exports = {
     ]
   },
   variants: {
-    backgroundColor: ["active"]
+    backgroundColor: ["active", "hover"]
   },
   plugins: [require("tailwindcss-bg-alpha")()]
 };

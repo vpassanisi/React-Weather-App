@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Location = props => {
-  const [location, setLocation] = useState("");
-
+const Search = props => {
   const submitLocation = e => {
     if (e.key === "Enter") {
-      props.fetchWeather(location);
+      props.fetchWeather(props.location);
       e.target.value = "";
     }
   };
   return (
-    <div className="bg-blue-gray-900-alpha-70 pt-4 pb-2 rounded-b-md flex">
+    <div className="bg-blue-gray-900-alpha-70 pt-4 pb-2 rounded-b-md flex w-4/5 xl:w-1/2">
       <div className="w-1/4" />
       <input
         type="text"
         placeholder="location"
         className="bg-transparent outline-none text-center text-white text-2xl h-8 w-1/2"
-        onChange={e => setLocation(e.target.value)}
+        onChange={e => props.setLocation(e.target.value)}
         onKeyDown={submitLocation}
         onFocus={e => (e.target.value = "")}
       />
@@ -24,7 +22,7 @@ const Location = props => {
         <button
           className="inline-block text-white focus:outline-none"
           onClick={() =>
-            location !== "" ? props.fetchWeather(location) : null
+            props.location !== "" ? props.fetchWeather(props.location) : null
           }
         >
           <svg
@@ -44,4 +42,4 @@ const Location = props => {
   );
 };
 
-export default Location;
+export default Search;
