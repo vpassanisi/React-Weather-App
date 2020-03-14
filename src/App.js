@@ -58,6 +58,7 @@ const App = () => {
     } else {
       fetchWeather(loadFavorites[0], loadIsMetric);
     }
+    //eslint-disable-nexline
   }, []);
 
   useEffect(() => {
