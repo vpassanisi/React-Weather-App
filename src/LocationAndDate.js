@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import WeatherContext from "./context/weather/weatherContext";
 
 const LocationAndDate = props => {
+  const weatherContext = useContext(WeatherContext);
+
+  const {
+    currentWeather: {
+      observations: {
+        location: [
+          {
+            timezone,
+            observation: [{ city, state }]
+          }
+        ]
+      }
+    }
+  } = weatherContext;
+
   const calcTime = offset => {
     const d = new Date();
     const utc = d.getTime() + d.getTimezoneOffset() * 60000;
@@ -16,10 +33,8 @@ const LocationAndDate = props => {
   };
   return (
     <div className="flex flex-col items-center text-black mt-8 mb-4">
-      <div className="text-2xl">
-        {props.city + ","} {props.state}
-      </div>
-      <div>{props.time === undefined ? "" : calcTime(props.timezone)}</div>
+      <div className="text-2xl">{city + " ," + state}</div>
+      <div>{calcTime(timezone)}</div>
     </div>
   );
 };
