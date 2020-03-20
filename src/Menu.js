@@ -11,6 +11,7 @@ const Menu = props => {
   const {
     getWeather,
     getTodaysForecast,
+    getWeeksForecast,
     currentWeather: {
       observations: {
         location: [
@@ -56,9 +57,9 @@ const Menu = props => {
       key={index}
       favorite={favorite}
       index={index}
-      fetchWeather={props.fetchWeather}
       selected={selected}
       select={select}
+      isMetric={props.isMetric}
     />
   ));
 
@@ -79,6 +80,10 @@ const Menu = props => {
               props.setIsMetric(!props.isMetric);
               getWeather(city + " " + state + " " + country, !props.isMetric);
               getTodaysForecast(
+                city + " " + state + " " + country,
+                !props.isMetric
+              );
+              getWeeksForecast(
                 city + " " + state + " " + country,
                 !props.isMetric
               );

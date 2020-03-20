@@ -4,7 +4,7 @@ import WeatherContext from "./context/weather/weatherContext";
 const Favorite = props => {
   const weatherContext = useContext(WeatherContext);
 
-  const { getWeather, getTodaysForecast } = weatherContext;
+  const { getWeather, getTodaysForecast, getWeeksForecast } = weatherContext;
 
   return (
     <button
@@ -12,8 +12,9 @@ const Favorite = props => {
         props.selected === props.index ? "bg-blue-gray-700" : ""
       }`}
       onClick={() => {
-        getWeather(props.favorite);
-        getTodaysForecast(props.favorite);
+        getWeather(props.favorite, props.isMetric);
+        getTodaysForecast(props.favorite, props.isMetric);
+        getWeeksForecast(props.favorite, props.isMetric);
         props.select(props.index);
       }}
     >

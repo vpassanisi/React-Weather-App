@@ -1,4 +1,4 @@
-import { GET_WEATHER, GET_TODAY_FORECAST, GET_WEEK_FORECAST } from "../types";
+import { GET_WEATHER, GET_TODAY_FORECAST, GET_WEEKLY_FORECAST } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -12,6 +12,12 @@ export default (state, action) => {
       return {
         ...state,
         todaysForecast: action.payload,
+        loading: false
+      };
+    case GET_WEEKLY_FORECAST:
+      return {
+        ...state,
+        weeklyForecast: action.payload,
         loading: false
       };
     default:

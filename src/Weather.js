@@ -8,6 +8,7 @@ import Conditions from "./Conditions.js";
 import Menu from "./Menu.js";
 import WeatherContext from "./context/weather/weatherContext";
 import DayForecast from "./DayForecast.js";
+import WeeklyForecast from "./WeeklyForecast.js";
 
 //prettier-ignore
 const Container = styled.div`
@@ -25,7 +26,7 @@ const Weather = () => {
 
   const weatherContext = useContext(WeatherContext);
 
-  const { getWeather, getTodaysForecast } = weatherContext;
+  const { getWeather, getTodaysForecast, getWeeksForecast } = weatherContext;
 
   useEffect(() => {
     const loadedFavorites = JSON.parse(localStorage.getItem("favorites"));
@@ -40,6 +41,7 @@ const Weather = () => {
       localStorage.setItem("favorites", JSON.stringify([]));
       getWeather("scotts valley", false);
       getTodaysForecast("scotts valley", false);
+      getWeeksForecast("scotts valley", false);
     } else if (loadedFavorites.length > 0) {
       setFavorites(loadedFavorites);
       getWeather(
@@ -50,9 +52,17 @@ const Weather = () => {
         loadedFavorites[0],
         JSON.parse(localStorage.getItem("isMetric"))
       );
+      getWeeksForecast(
+        loadedFavorites[0],
+        JSON.parse(localStorage.getItem("isMetric"))
+      );
     } else {
       getWeather("scotts valley", JSON.parse(localStorage.getItem("isMetric")));
       getTodaysForecast(
+        "scotts valley",
+        JSON.parse(localStorage.getItem("isMetric"))
+      );
+      getWeeksForecast(
         "scotts valley",
         JSON.parse(localStorage.getItem("isMetric"))
       );
@@ -82,6 +92,8 @@ const Weather = () => {
         <Temperature isMetric={isMetric} />
         <Conditions />
         <DayForecast />
+        <div className="font-hairline text-4xl underline">Weekly Forecast</div>
+        <WeeklyForecast />
       </div>
     </Container>
   );

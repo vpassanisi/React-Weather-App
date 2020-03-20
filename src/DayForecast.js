@@ -64,7 +64,7 @@ const DayForecast = () => {
 
   return (
     <div
-      className="bg-blue-gray-900-alpha-70 mt-2 p-4 rounded max-w-2xl"
+      className="bg-blue-gray-900-alpha-70 my-2 p-4 rounded max-w-2xl"
       style={{ width: "calc(100% - 4rem)" }}
     >
       <div className="text-white text-center text-2xl font-hairline">

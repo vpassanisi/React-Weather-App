@@ -4,7 +4,7 @@ import WeatherContext from "./weatherContext";
 import {
   GET_WEATHER,
   GET_TODAY_FORECAST,
-  GET_WEEK_FORECAST,
+  GET_WEEKLY_FORECAST,
   WEATHER_ERROR,
   CLEAR_ERRORS
 } from "../types";
@@ -43,7 +43,11 @@ const WeatherState = props => {
         }
       }
     },
-    weeklyForecast: {},
+    weeklyForecast: {
+      dailyForecasts: {
+        forecastLocation: { forecast: [] }
+      }
+    },
     loading: true,
     error: null
   };
@@ -82,8 +86,6 @@ const WeatherState = props => {
 
       const data = await res.json();
 
-      console.log(data);
-
       dispatch({ type: GET_TODAY_FORECAST, payload: data });
     } catch (err) {
       console.log(err);
@@ -101,7 +103,9 @@ const WeatherState = props => {
 
       const data = await res.json();
 
-      dispatch({ type: GET_WEEK_FORECAST, payload: data });
+      console.log(data);
+
+      dispatch({ type: GET_WEEKLY_FORECAST, payload: data });
     } catch (err) {
       console.log(err);
     }
@@ -112,6 +116,7 @@ const WeatherState = props => {
       value={{
         currentWeather: state.currentWeather,
         todaysForecast: state.todaysForecast,
+        weeklyForecast: state.weeklyForecast,
         loading: state.loading,
         error: state.error,
         getWeather,
