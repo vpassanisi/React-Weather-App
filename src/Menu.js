@@ -9,11 +9,13 @@ const Menu = props => {
   const weatherContext = useContext(WeatherContext);
 
   const {
+    getWeather,
+    getTodaysForecast,
     currentWeather: {
       observations: {
         location: [
           {
-            observation: [{ city, state }]
+            observation: [{ city, state, country }]
           }
         ]
       }
@@ -75,8 +77,9 @@ const Menu = props => {
             className="text-white font-hairline text-2xl w-full py-4 px-2 focus:outline-none over hover:bg-blue-gray-700 transition duration-500  ease-in-out"
             onClick={() => {
               props.setIsMetric(!props.isMetric);
-              props.fetchWeather(
-                props.city + " " + props.state + " " + props.country,
+              getWeather(city + " " + state + " " + country, !props.isMetric);
+              getTodaysForecast(
+                city + " " + state + " " + country,
                 !props.isMetric
               );
             }}

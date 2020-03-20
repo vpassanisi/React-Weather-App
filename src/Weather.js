@@ -39,12 +39,23 @@ const Weather = () => {
     if (!localStorage.favorites) {
       localStorage.setItem("favorites", JSON.stringify([]));
       getWeather("scotts valley", false);
+      getTodaysForecast("scotts valley", false);
     } else if (loadedFavorites.length > 0) {
       setFavorites(loadedFavorites);
-      getWeather(loadedFavorites[0], false);
-      getTodaysForecast(loadedFavorites[0], false);
+      getWeather(
+        loadedFavorites[0],
+        JSON.parse(localStorage.getItem("isMetric"))
+      );
+      getTodaysForecast(
+        loadedFavorites[0],
+        JSON.parse(localStorage.getItem("isMetric"))
+      );
     } else {
-      getWeather("scotts valley", false);
+      getWeather("scotts valley", JSON.parse(localStorage.getItem("isMetric")));
+      getTodaysForecast(
+        "scotts valley",
+        JSON.parse(localStorage.getItem("isMetric"))
+      );
     }
 
     //eslint-disable-next-line
