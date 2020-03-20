@@ -31,7 +31,18 @@ const WeatherState = props => {
         ]
       }
     },
-    todaysForecast: {},
+    todaysForecast: {
+      hourlyForecasts: {
+        forecastLocation: {
+          forecast: [
+            {
+              localTime: "",
+              temperature: ""
+            }
+          ]
+        }
+      }
+    },
     weeklyForecast: {},
     loading: true,
     error: null
@@ -56,7 +67,30 @@ const WeatherState = props => {
     }
   };
 
-  const getTodaysForcast = async (location, metric = false) => {
+  const getTodaysForecast = async (location, metric = false) => {
+    try {
+      const res = await fetch(
+        `https://weather.ls.hereapi.com/weather/1.0/report.json?apiKey=${
+          process.env.REACT_APP_API_KEY
+        }&product=forecast_hourly&hourlydate=${
+          new Date(Date.now()).toISOString().split("T")[0]
+        }&name=${location}&metric=${metric}`,
+        {
+          method: "GET"
+        }
+      );
+
+      const data = await res.json();
+
+      console.log(data);
+
+      dispatch({ type: GET_TODAY_FORECAST, payload: data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getWeeksForecast = async (location, metric = false) => {
     try {
       const res = await fetch(
         `https://weather.ls.hereapi.com/weather/1.0/report.json?apiKey=${process.env.REACT_APP_API_KEY}&product=forecast_7days_simple&name=${location}&metric=${metric}`,
@@ -66,7 +100,11 @@ const WeatherState = props => {
       );
 
       const data = await res.json();
-    } catch (err) {}
+
+      dispatch({ type: GET_WEEK_FORECAST, payload: data });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -76,7 +114,9 @@ const WeatherState = props => {
         todaysForecast: state.todaysForecast,
         loading: state.loading,
         error: state.error,
-        getWeather
+        getWeather,
+        getTodaysForecast,
+        getWeeksForecast
       }}
     >
       {props.children}

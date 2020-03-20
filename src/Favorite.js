@@ -4,7 +4,7 @@ import WeatherContext from "./context/weather/weatherContext";
 const Favorite = props => {
   const weatherContext = useContext(WeatherContext);
 
-  const { getWeather } = weatherContext;
+  const { getWeather, getTodaysForecast } = weatherContext;
 
   return (
     <button
@@ -13,6 +13,7 @@ const Favorite = props => {
       }`}
       onClick={() => {
         getWeather(props.favorite);
+        getTodaysForecast(props.favorite);
         props.select(props.index);
       }}
     >

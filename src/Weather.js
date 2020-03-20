@@ -7,6 +7,7 @@ import Temperature from "./Temperature.js";
 import Conditions from "./Conditions.js";
 import Menu from "./Menu.js";
 import WeatherContext from "./context/weather/weatherContext";
+import DayForecast from "./DayForecast.js";
 
 //prettier-ignore
 const Container = styled.div`
@@ -24,7 +25,7 @@ const Weather = () => {
 
   const weatherContext = useContext(WeatherContext);
 
-  const { getWeather } = weatherContext;
+  const { getWeather, getTodaysForecast } = weatherContext;
 
   useEffect(() => {
     const loadedFavorites = JSON.parse(localStorage.getItem("favorites"));
@@ -41,6 +42,7 @@ const Weather = () => {
     } else if (loadedFavorites.length > 0) {
       setFavorites(loadedFavorites);
       getWeather(loadedFavorites[0], false);
+      getTodaysForecast(loadedFavorites[0], false);
     } else {
       getWeather("scotts valley", false);
     }
@@ -68,6 +70,7 @@ const Weather = () => {
         <LocationAndDate />
         <Temperature isMetric={isMetric} />
         <Conditions />
+        <DayForecast />
       </div>
     </Container>
   );

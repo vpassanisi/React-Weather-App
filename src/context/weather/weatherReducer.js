@@ -8,6 +8,12 @@ export default (state, action) => {
         currentWeather: action.payload,
         loading: false
       };
+    case GET_TODAY_FORECAST:
+      return {
+        ...state,
+        todaysForecast: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

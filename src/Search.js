@@ -4,11 +4,12 @@ import WeatherContext from "./context/weather/weatherContext";
 const Search = props => {
   const weatherContext = useContext(WeatherContext);
 
-  const { getWeather } = weatherContext;
+  const { getWeather, getTodaysForecast } = weatherContext;
 
   const submitLocation = e => {
     if (e.key === "Enter") {
       getWeather(props.location);
+      getTodaysForecast(props.location);
       e.target.value = "";
     }
   };
@@ -28,7 +29,9 @@ const Search = props => {
         <button
           className="inline-block text-white focus:outline-none"
           onClick={() =>
-            props.location !== "" ? getWeather(props.location) : null
+            props.location !== ""
+              ? (getWeather(props.location), getTodaysForecast(props.location))
+              : null
           }
         >
           <svg
