@@ -17,8 +17,8 @@ const WeeklyForecast = () => {
 
   return (
     <div
-      className="flex flex-row overflow-x-auto mb-4"
-      style={{ width: "calc(100% - 4rem)" }}
+      className="flex flex-row  overflow-x-auto mb-4"
+      style={{ width: "calc(100% - 4rem)", maxWidth: "1000px" }}
     >
       {Days}
     </div>
