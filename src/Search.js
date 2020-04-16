@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import WeatherContext from "./context/weather/weatherContext";
 
-const Search = props => {
+const Search = (props) => {
   const weatherContext = useContext(WeatherContext);
 
   const { getWeather, getTodaysForecast } = weatherContext;
 
-  const submitLocation = e => {
+  const submitLocation = (e) => {
     if (e.key === "Enter") {
       getWeather(props.location);
       getTodaysForecast(props.location);
@@ -15,15 +15,15 @@ const Search = props => {
   };
 
   return (
-    <div className="bg-blue-gray-900-alpha-70 pt-4 pb-2 rounded-b-md flex w-4/5 xl:w-1/2">
+    <div className="bg-blue-gray-900-alpha-70 pt-4 pb-2 rounded-b-md flex w-90p max-w-screen-lg">
       <div className="w-1/6" />
       <input
         type="text"
         placeholder="location"
         className="bg-transparent outline-none text-center text-white text-2xl h-8 w-4/6"
-        onChange={e => props.setLocation(e.target.value)}
+        onChange={(e) => props.setLocation(e.target.value)}
         onKeyDown={submitLocation}
-        onFocus={e => (e.target.value = "")}
+        onFocus={(e) => (e.target.value = "")}
       />
       <div className="w-1/6 flex flex-row justify-center">
         <button

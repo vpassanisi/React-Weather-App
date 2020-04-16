@@ -12,14 +12,14 @@ const DayForecast = () => {
   const {
     todaysForecast: {
       hourlyForecasts: {
-        forecastLocation: { forecast }
-      }
+        forecastLocation: { forecast },
+      },
     },
     todaysForecast: {
       hourlyForecasts: {
-        forecastLocation: { timezone }
-      }
-    }
+        forecastLocation: { timezone },
+      },
+    },
   } = weatherContext;
 
   const formatTime = (data, offset) => {
@@ -28,17 +28,17 @@ const DayForecast = () => {
     const nd = new Date(utc + 3600000 * offset);
     const ls = nd.toLocaleString("en-US", {
       hour: "2-digit",
-      minute: "2-digit"
+      minute: "2-digit",
     });
     if (ls === "Invalid Date") return "";
     return ls;
   };
 
-  const data = canvas => {
+  const data = (canvas) => {
     const obj = {};
 
     let labelArr = [];
-    forecast.forEach(cast => {
+    forecast.forEach((cast) => {
       labelArr.push(formatTime(cast, timezone));
     });
     obj.labels = labelArr;
@@ -46,14 +46,27 @@ const DayForecast = () => {
     obj.datasets = [];
     obj.datasets[0] = {
       borderColor: "white",
-      fill: false
+      fill: false,
+      label: "Temperature",
     };
 
     let tempArr = [];
-    forecast.forEach(cast => {
+    forecast.forEach((cast) => {
       tempArr.push(cast.temperature);
     });
     obj.datasets[0].data = tempArr;
+
+    obj.datasets[1] = {
+      borderColor: "blue",
+      fill: false,
+      label: "Rain",
+    };
+
+    let rainArr = [];
+    forecast.forEach((cast) => {
+      rainArr.push(cast.precipitationProbability);
+    });
+    obj.datasets[1].data = rainArr;
 
     return obj;
   };
@@ -63,15 +76,12 @@ const DayForecast = () => {
   // }, [forecast]);
 
   return (
-    <div
-      className="bg-blue-gray-900-alpha-70 my-2 p-4 rounded max-w-2xl"
-      style={{ width: "calc(100% - 4rem)" }}
-    >
-      <div className="text-white text-center text-2xl font-hairline">
+    <div className="bg-blue-gray-900-alpha-70 my-2 p-2 rounded max-w-screen-lg w-90p">
+      {/* <div className="text-white text-center text-2xl font-hairline">
         Temperature Forecast
-      </div>
+      </div> */}
       <Line
-        ref={reference => (chartReference = reference)}
+        ref={(reference) => (chartReference = reference)}
         redraw={true}
         data={data}
         options={{
@@ -79,30 +89,33 @@ const DayForecast = () => {
           aspectRatio: 2,
           maintainAspectRatio: true,
           legend: {
-            display: false
+            display: true,
+            labels: {
+              fontColor: "white",
+            },
           },
           scales: {
             xAxes: [
               {
                 ticks: {
-                  fontColor: "white"
+                  fontColor: "white",
                 },
                 gridLines: {
-                  zeroLineColor: "black"
-                }
-              }
+                  zeroLineColor: "black",
+                },
+              },
             ],
             yAxes: [
               {
                 ticks: {
-                  fontColor: "white"
+                  fontColor: "white",
                 },
                 gridLines: {
-                  zeroLineColor: "black"
-                }
-              }
-            ]
-          }
+                  zeroLineColor: "black",
+                },
+              },
+            ],
+          },
         }}
       />
     </div>

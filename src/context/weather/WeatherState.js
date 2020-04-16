@@ -6,10 +6,10 @@ import {
   GET_TODAY_FORECAST,
   GET_WEEKLY_FORECAST,
   WEATHER_ERROR,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
 } from "../types";
 
-const WeatherState = props => {
+const WeatherState = (props) => {
   const initialState = {
     currentWeather: {
       observations: {
@@ -24,12 +24,12 @@ const WeatherState = props => {
                 iconLink: "",
                 country: "",
                 state: "",
-                city: ""
-              }
-            ]
-          }
-        ]
-      }
+                city: "",
+              },
+            ],
+          },
+        ],
+      },
     },
     todaysForecast: {
       hourlyForecasts: {
@@ -37,19 +37,19 @@ const WeatherState = props => {
           forecast: [
             {
               localTime: "",
-              temperature: ""
-            }
-          ]
-        }
-      }
+              temperature: "",
+            },
+          ],
+        },
+      },
     },
     weeklyForecast: {
       dailyForecasts: {
-        forecastLocation: { forecast: [] }
-      }
+        forecastLocation: { forecast: [] },
+      },
     },
     loading: true,
-    error: null
+    error: null,
   };
 
   const [state, dispatch] = useReducer(weatherReducer, initialState);
@@ -59,7 +59,7 @@ const WeatherState = props => {
       const res = await fetch(
         `https://weather.ls.hereapi.com/weather/1.0/report.json?apiKey=${process.env.REACT_APP_API_KEY}&product=observation&name=${location}&oneobservation=true&metric=${metric}`,
         {
-          method: "GET"
+          method: "GET",
         }
       );
 
@@ -80,7 +80,7 @@ const WeatherState = props => {
           new Date(Date.now()).toISOString().split("T")[0]
         }&name=${location}&metric=${metric}`,
         {
-          method: "GET"
+          method: "GET",
         }
       );
 
@@ -97,13 +97,11 @@ const WeatherState = props => {
       const res = await fetch(
         `https://weather.ls.hereapi.com/weather/1.0/report.json?apiKey=${process.env.REACT_APP_API_KEY}&product=forecast_7days_simple&name=${location}&metric=${metric}`,
         {
-          method: "GET"
+          method: "GET",
         }
       );
 
       const data = await res.json();
-
-      console.log(data);
 
       dispatch({ type: GET_WEEKLY_FORECAST, payload: data });
     } catch (err) {
@@ -121,7 +119,7 @@ const WeatherState = props => {
         error: state.error,
         getWeather,
         getTodaysForecast,
-        getWeeksForecast
+        getWeeksForecast,
       }}
     >
       {props.children}
